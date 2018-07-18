@@ -58,17 +58,17 @@ plt.show()
 ![png](output_7_0.png)
 
 
-### Modelo
-
 #### Cross-Validation
 
 
 ```python
 arq = pd.read_table('input/input01.txt',names=["sessions"])
 X = arq.index.values.reshape(-1, 1)
-y = arq['sessions']
+y = arq.values
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
 ```
+
+### Modelo - Regressão Logística
 
 #### Aprendizagem Supervisionada
 
@@ -78,6 +78,10 @@ from sklearn.linear_model import LogisticRegression
 regr = LogisticRegression()
 regr.fit(X_train, y_train)
 ```
+
+    C:\ProgramData\Anaconda2\lib\site-packages\sklearn\utils\validation.py:578: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+      y = column_or_1d(y, warn=True)
+    
 
 
 
@@ -93,13 +97,13 @@ regr.fit(X_train, y_train)
 
 
 ```python
-pred = regr.predict(X_test)
+y_pred = regr.predict(X_test)
 ```
 
 
 ```python
-plt.plot(pred, label='Predicted Labels')
-plt.plot(y_test.values, label='True Labels')
+plt.plot(y_pred, label='Predicted Labels')
+plt.plot(y_test, label='True Labels')
 plt.legend()
 plt.show()
 ```
@@ -108,7 +112,45 @@ plt.show()
 ![png](output_15_0.png)
 
 
+### Modelo - Regressão Linear
+
+#### Aprendizagem Supervisionada
+
+
+```python
+from sklearn.linear_model import LinearRegression
+regr = LinearRegression()
+regr.fit(X_train, y_train)
+```
+
+
+
+
+    LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+
+
+
+#### Predição 
+
+
+```python
+y_pred = regr.predict(X_test)
+```
+
+
+```python
+plt.plot(y_pred, label='Predicted Labels')
+plt.plot(y_test, label='True Labels')
+plt.legend()
+plt.show()
+```
+
+
+![png](output_21_0.png)
+
+
 Fonte:  
+https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/  
 https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/  
 http://www.ulb.ac.be/di/map/gbonte/ftp/time_ser.pdf  
 http://scikit-learn.org/stable/auto_examples/linear_model/plot_ols.html
