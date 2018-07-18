@@ -12,6 +12,12 @@ from sklearn.cross_validation import train_test_split
 from statsmodels.tsa.seasonal import seasonal_decompose
 ```
 
+    C:\ProgramData\Anaconda2\lib\site-packages\sklearn\cross_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+      "This module will be removed in 0.20.", DeprecationWarning)
+    C:\ProgramData\Anaconda2\lib\site-packages\statsmodels\compat\pandas.py:56: FutureWarning: The pandas.core.datetools module is deprecated and will be removed in a future version. Please use the pandas.tseries module instead.
+      from pandas.core import datetools
+    
+
 
 ```python
 data = pd.read_table('input/input01.txt',names=["sessions"])
@@ -26,7 +32,7 @@ data.plot(kind='line')
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0xd2e17f0>
+    <matplotlib.axes._subplots.AxesSubplot at 0xbc9a908>
 
 
 
@@ -60,6 +66,7 @@ plt.show()
 ```python
 arq = pd.read_table('input/input01.txt',names=["sessions"])
 X = arq.index.values.reshape(-1, 1)
+y = arq['sessions']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
 ```
 
@@ -88,6 +95,18 @@ regr.fit(X_train, y_train)
 ```python
 pred = regr.predict(X_test)
 ```
+
+
+```python
+plt.plot(pred, label='Predicted Labels')
+plt.plot(y_test.values, label='True Labels')
+plt.legend()
+plt.show()
+```
+
+
+![png](output_15_0.png)
+
 
 Fonte:  
 https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/  
